@@ -1,10 +1,24 @@
 ---
 
-- name: ls
-  command: ls
+- name: Set up .profile
+  block:
+    - template:
+        src: dotprofile.j2
+        dest: ~/.profile
+        # owner: current user
+        # group: current user
+        mode: 0400
+
+    - copy: 
+        content: ""
+        dest: ~/.envvars
+        force: no
+        # owner: current user
+        # group: current user
+        mode: 0600
 
 # Set up git
-- name: Setup Git
+- name: Set up Git
   block:
     - git_config:
         name: user.name
