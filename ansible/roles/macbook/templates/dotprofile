@@ -1,0 +1,56 @@
+###
+# Envvars
+###
+
+source ~/.envvars
+
+
+###
+# Terminal
+###
+
+# Prompt
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="[\t]\[\033[33m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\]> "
+
+#iterm2 colors
+export CLICOLOR=1
+export TERM=xterm-256color
+
+# Colored ls
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad  
+
+# Tab title: https://akrabat.com/setting-os-xs-terminal-tab-to-the-current-directory/
+function tab_title {
+    echo -n -e "\033]0;`dirs +0`\007"
+}
+
+
+###
+# OSX Specific
+###
+
+defaults write com.apple.finder AppleShowAllFiles YES
+
+# Fix Python fork() on MacOS 10.13 (https://github.com/ansible/ansible/issues/31869#issuecomment-337769174)
+OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+
+###
+# Disabled
+###
+# export PATH=/usr/local/bin:/usr/local/sbin:~/Library/Python/3.6/bin:$PATH
+
+# Bash History
+# export PROMPT_COMMAND='tab_title; if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S"), $(pwd), $(history 1)" >> ~/.logs/bash-history-$(date "+%Y-%m-%d").log; fi'
+
+# Git
+# git config --global alias.commitx 'commit --amend --no-edit'
+# git config --global gpg.program gpg2
+# git config --global commit.gpgsign true
+# git config --global user.signingkey 2DABCD
+# git config --global user.name "Cristian Poll"
+# git config --global user.email cristian@cristianpoll.com

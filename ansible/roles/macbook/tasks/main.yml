@@ -1,0 +1,30 @@
+---
+
+- name: ls
+  command: ls
+
+# Set up git
+- name: Setup Git
+  block:
+    - git_config:
+        name: user.name
+        scope: global
+        value: "{{git_user_name}}"
+
+    - git_config:
+        name: user.email
+        scope: global
+        value: "{{git_user_email}}"
+
+    - git_config:
+        name: core.editor
+        scope: global
+        value: vim
+
+# Create SSH key
+- name: Generate /etc/ssh/ RSA host key
+  command: ssh-keygen -t rsa -b 4096 -N "" -C "{{git_user_email}}" -f ~/.ssh/id_rsa
+  args:
+    creates: ~/.ssh/id_rsa
+
+  # TODO: Echo out public key

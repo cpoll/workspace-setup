@@ -1,0 +1,6 @@
+- hosts: all
+  roles:
+    - macbook
+  vars:
+    git_user_name: "Cristian Poll"
+    git_user_email: "cristian@cristianpoll.com"
